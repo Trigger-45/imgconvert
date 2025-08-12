@@ -1,9 +1,18 @@
 from PIL import Image
 import os
+import argparse
 
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-i", "--image_path", help="Pfad zum Bild")
+parser.add_argument("output_format", help="Ziel-Format (z. B. jpg, png)")
+parser.add_argument("-rf", "--resize_factor", type=float, default=1.0, help="Faktor zur Größenänderung (z. B. 0.5 für 50%)")
+parser.add_argument("-rt","--resize_to", type=int, nargs=2, metavar=("WIDTH", "HEIGHT"), help="Größe ändern auf (Breite, Höhe)")
+parser.add_argument("-d", "--directory", help="Ordner mit Bildern konvertieren")
+args = parser.parse_args()
 
 def convert_image(image_path, output_format, resize_factor=1.0, resize_to=None):
-    img = Image.open(image_path)
+    img = Image.open(image_path).convert("RGB")
 
     if resize_to: 
         img = img.resize(resize_to)
@@ -18,25 +27,19 @@ def convert_image(image_path, output_format, resize_factor=1.0, resize_to=None):
     img.save(output_path)
 
 
-
-
 def main():
-    path = input("Pfad zum Bild: ")
-    fmt = input("Ziel-Format (z. B. jpg, png): ")
-    factor = 1.0
-    size = None
+    path = args.image_path
+    fmt = args.output_format
+    factor = args.resize_factor
+    size = args.resize_to
 
-    factor_choice = input("Möchten Sie die Größe ändern? (ja/nein): ").strip().lower()
-    if factor_choice == "ja":
-        size_choice = input("Wie möchten Sie die Größe ändern angeben? (Prozent(P)/Messungen(M)): ").strip().lower()
-        if size_choice == "p":
-            factor = float(input("Größe in Prozent (z. B. 0.5 für 50%): "))
-        elif size_choice == "m":
-            width = int(input("Breite (z. B. 100 für 100px): "))
-            height = int(input("Höhe (z. B. 100 für 100px): "))
-            size = (width, height)
-
-    convert_image(path, fmt, resize_factor=factor, resize_to=size)
+    if args.directory:
+        
+        for file in os.listdir(args.directory):
+            if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".bmp", ".gif")):
+                convert_image(os.path.join(args.directory, file), fmt, resize_factor=factor, resize_to=size)
+    else:
+        convert_image(path, fmt, resize_factor=factor, resize_to=size)
 
 
 
