@@ -5,6 +5,13 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
 
 ---
 
+## Project Files & Features 📂
+
+| Datei / Feature | Status |
+|-----------------|--------|
+| `imgconvert.py` | ![Done](https://img.shields.io/badge/status-done-brightgreen) |
+| `gui.py` | ![In Progress](https://img.shields.io/badge/status-in_progress-yellow) |
+
 ## ✨ Features
 
 - 🔄 **Format wechseln** – JPG → PNG, PNG → WEBP, BMP → JPG … was du willst.
