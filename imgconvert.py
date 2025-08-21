@@ -2,6 +2,7 @@ import os
 import argparse
 import subprocess
 from PIL import Image
+import gui
 
 # ArgumentParser für Kommandozeilenargumente
 parser = argparse.ArgumentParser()
@@ -44,7 +45,7 @@ def main():
 
     # Wenn keine Argumente übergeben werden, starte die GUI
     else:
-        subprocess.run(["python", "gui.py"])
+        gui.main()
 
 if __name__ == "__main__":
     main()

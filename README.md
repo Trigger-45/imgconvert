@@ -1,9 +1,19 @@
-# 📸 imgconvert – Dein Bild, dein Format, deine Größe!
+<h1 align="center">📸 imgconvert</h1>
+<p align="center"><i>Dein Bild, dein Format, deine Größe!</i></p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/status-CLI_done-brightgreen" alt="CLI Status">
+  <img src="https://img.shields.io/badge/status-GUI_in_progress-yellow" alt="GUI Status">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
+</p>
+
+---
 
 **imgconvert** ist ein leichtgewichtiges, ultraschnelles CLI-Tool, mit dem du Bilder **konvertieren, verkleinern, vergrößern und in neue Formate umwandeln** kannst – alles mit nur einem einzigen Befehl.  
 Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconvert** macht’s in Sekunden.
 
 ---
+
 
 ## Project Files & Features 📂
 
@@ -36,6 +46,73 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
 
 ---
 
+
+## ⚙️ Tool einrichten (optional)
+
+### 💻 Windows – EXE erstellen und PATH hinzufügen
+
+1. EXE mit PyInstaller erstellen
+    1. Öffne die Eingabeaufforderung (CMD) oder PowerShell.
+    2. Navigiere in dein Projektverzeichnis:
+    ```bash
+    cd C:\Pfad\zu\imgconvert
+    ```
+    3. Erstelle die ausführbare Datei
+    ```bash
+    pyinstaller --onefile imgconvert.py
+    ```
+    - --onefile → alles in einer Datei
+    - Die EXE landet danach in dist\imgconvert.exe.
+2. Ordner zum PATH hinzufügen
+    1.  Drücke Win + S, tippe Systemumgebungsvariablen und öffne „Systemumgebungsvariablen bearbeiten“.
+
+    2. Klicke unten auf „Umgebungsvariablen…“.
+
+    3. Suche in Systemvariablen nach Path → Bearbeiten.
+
+    4. Klicke Neu → füge C:\Pfad\zu\dist ein → OK schließen.
+
+    5. CMD/PowerShell neu starten, damit die Änderung aktiv wird.
+
+3. EXE von überall aufrufen
+
+    - Jetzt kannst du das Tool von jedem Verzeichnis aus nutzen
+    - Die EXE ist jetzt global verfügbar, kein Python mehr nötig
+
+### 🐧 Linux – EXE erstellen und PATH hinzufügen
+
+1. EXE mit PyInstaller erstellen
+
+    1. Öffne das Terminal.
+    2. Navigiere in dein Projektverzeichnis:
+    ```bash
+    cd /pfad/zu/imgconvert
+    ```
+    3. Erstelle die ausführbare Datei:
+    ```bash
+    pyinstaller --onefile imgconvert.py
+    ```
+    - Die fertige EXE landet danach in dist/imgconvert.
+
+2. Ausführbar machen
+```bash
+chmod +x dist/imgconvert
+```
+- Das macht die Datei ausführbar
+
+3. Ordner zum PATH hinzufügen
+    - Damit du sie von überall aufrufen kannst, füge einfach den dist/-Ordner deinem PATH hinzu:
+    ```bash
+    echo 'export PATH="/pfad/zu/imgconvert/dist:$PATH"' >> ~/.bashrc
+    source ~/.bashrc
+    ```
+    - Ersetze /pfad/zu/imgconvert durch den absoluten Pfad zu deinem Projekt.
+
+
+4. EXE von überall aufrufen
+    - Jetzt kannst du das Tool von jedem Verzeichnis aus nutzen
+    - Die EXE ist jetzt global verfügbar, kein Python mehr nötig
+
 ## 🖥️ Nutzung
 
 1. Einzelnes Bild konvertieren
@@ -56,7 +133,14 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
 4. Kompletten Ordner konvertieren
     ```bash
     python imgconvert.py png -d /path/to/ordner
+    ```
 
+5. Bilder mit GUI konvertieren
+    ```bash
+    python imgconvert.py
+    ```
+
+> **_NOTE:_**  Wenn das Tool eingerichtet wurde (Path hinzugefügt) ändert sich nur der Anfang von `python imgconvert.py` zu `imgconvert`. Die Argumente bleiben gleich.
 
 ## ⚡ Beispiele
 
@@ -74,6 +158,17 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
 - [ ] Mehr Bildformate (TIFF, ICO, etc.)
 - [ ] Vollwertige **CLI-Version** mit erweiterten Optionen
 - [ ] Benutzerfreundliche **GUI-Version** für einfaches Klicken statt Tippen
+
+---
+
+## 📝 To-Do
+
+- [ ] Tests für verschiedene Bildformate schreiben  
+- [ ] Fehlerbehandlung verbessern (ungültige Eingaben, kaputte Dateien)  
+- [ ] Logging hinzufügen (optional mit `--verbose`)  
+- [ ] Performance-Benchmarking bei großen Ordnern  
+- [ ] GUI weiterentwickeln und erste Beta releasen 
+- [ ] Bildvorschau bei Ordner anzeigen (Gui mithilfe von QScrollArea)
 
 ---
 

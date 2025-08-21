@@ -3,13 +3,14 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QPixmap
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton, QRadioButton,
-    QComboBox, QLineEdit, QGroupBox, QHBoxLayout, QVBoxLayout, QScrollArea
+    QComboBox, QLineEdit, QGroupBox, QHBoxLayout, QVBoxLayout, QScrollArea, QMessageBox
 )
 import tkinter
 from tkinter import filedialog
 import imgconvert
 import textwrap
-
+from PIL import Image
+import os
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -19,7 +20,6 @@ class MainWindow(QWidget):
         self.name = "File"
         self.file_path = ""
         self.format = "PNG"
-
         self.setWindowTitle("ImgConvert")
         self.resize(700, 400)
 
@@ -61,11 +61,16 @@ class MainWindow(QWidget):
         self.info = QLabel("Selected:")
         controls_layout.addWidget(self.info)
 
-        self.info_selected_file = QLabel("No file selected")
+        self.info_selected_file = QLabel("Nothing selected")
         self.info_selected_file.setWordWrap(True)
         self.info_selected_file.setFixedWidth(300)
         self.info_selected_file.setTextInteractionFlags(Qt.TextSelectableByMouse)
+
+        self.info_selected_file_size = QLabel("Size: Unknown")
+
+
         controls_layout.addWidget(self.info_selected_file)
+        controls_layout.addWidget(self.info_selected_file_size)
 
         # Format-Label + Combobox
         format_layout = QHBoxLayout()
@@ -127,7 +132,8 @@ class MainWindow(QWidget):
 
         # --- Rechte Seite (Bild) ---
         self.label = QLabel()
-        self.label.setFixedSize(300, 200)
+        self.label.setMinimumHeight(200)
+        self.label.setMinimumWidth(300)
         self.label.setAlignment(Qt.AlignCenter)
 
         # ScrollArea, falls Bild zu groß ist
@@ -167,53 +173,84 @@ class MainWindow(QWidget):
                 self.file_path = path
                 wrapped_text = "\n".join(textwrap.wrap(self.file_path, width=50))
                 self.info_selected_file.setText(wrapped_text)
+
+                # Größe auslesen und im Label anzeigen
+                with Image.open(self.file_path) as img:
+                    width, height = img.size
+                    self.info_selected_file_size.setText(f"Size: {width} x {height}")
+
                 self.show_image()
             else:
                 self.file_path = ""
-                self.info_selected_file.setText("No file selected")
+                self.info_selected_file.setText("No File selected")
+                self.info_selected_file_size.setText("Size: Unknown")
         else:
             folder_path = filedialog.askdirectory()
             if folder_path:
                 self.file_path = folder_path
                 self.info_selected_file.setText(self.file_path)
+                self.info_selected_file_size.setText("Size: N/A (folder)")
+                self.show_image()
             else:
                 self.file_path = ""
-                self.info_selected_file.setText("No file selected")
+                self.info_selected_file.setText("No Folder selected")
+                self.info_selected_file_size.setText("Size: Unknown")
+
 
     def show_image(self):
         if not self.file_path:
             return
-        pixmap = QPixmap(self.file_path)
-        scaled = pixmap.scaled(self.label.width(), self.label.height(),
-                               Qt.KeepAspectRatio, Qt.SmoothTransformation)
-        self.label.setPixmap(scaled)
+
+        if os.path.isdir(self.file_path):
+            files = [f for f in os.listdir(self.file_path) if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".bmp", ".gif"))]
+            text = "\n".join(files)   
+            self.label.setText(text)
+        else:
+            pixmap = QPixmap(self.file_path)
+            scaled = pixmap.scaled(self.label.width(), self.label.height(),
+                                Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.label.setPixmap(scaled)
 
     def convert_image(self):
         if not self.file_path:
-            self.info_selected_file.setText("No file selected")
+            self.info_selected_file.setText("No file or folder selected")
             return
 
-        if self.factor_radio.isChecked():
-            try:
-                factor = float(self.factor_input.text()) if self.factor_input.text() else 1.0
-            except ValueError:
-                factor = 1.0
-            imgconvert.convert_image(self.file_path, self.get_format(), factor, None)
-        elif self.wh_radio.isChecked():
-            try:
-                width = int(self.width_input.text()) if self.width_input.text() else 0
-                height = int(self.height_input.text()) if self.height_input.text() else 0
-            except ValueError:
-                width, height = 0, 0
-            if width > 0 and height > 0:
-                imgconvert.convert_image(self.file_path, self.get_format(), None, (width, height))
+        if os.path.isdir(self.file_path):  # 🟢 Ordner
+            for file in os.listdir(self.file_path):
+                if file.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".bmp", ".gif")):
+                    imgconvert.convert_image(
+                        os.path.join(self.file_path, file),
+                        self.get_format(),
+                        float(self.factor_input.text()) if self.factor_radio.isChecked() and self.factor_input.text() else 1.0,
+                        (int(self.width_input.text()), int(self.height_input.text())) if self.wh_radio.isChecked() and self.width_input.text() and self.height_input.text() else None
+                    )
+            msgBox = QMessageBox()
+            msgBox.setText("Convertion successful")
+            msgBox.exec()
+        else:  # 🟢 Einzeldatei
+            if self.factor_radio.isChecked():
+                try:
+                    factor = float(self.factor_input.text()) if self.factor_input.text() else 1.0
+                except ValueError:
+                    factor = 1.0
+                imgconvert.convert_image(self.file_path, self.get_format(), factor, None)
+            elif self.wh_radio.isChecked():
+                try:
+                    width = int(self.width_input.text()) if self.width_input.text() else 0
+                    height = int(self.height_input.text()) if self.height_input.text() else 0
+                except ValueError:
+                    width, height = 0, 0
+                if width > 0 and height > 0:
+                    imgconvert.convert_image(self.file_path, self.get_format(), None, (width, height))
+                else:
+                    imgconvert.convert_image(self.file_path, self.get_format(), 1.0, None)
             else:
                 imgconvert.convert_image(self.file_path, self.get_format(), 1.0, None)
-        else:
-            imgconvert.convert_image(self.file_path, self.get_format(), 1.0, None)
 
 
-if __name__ == "__main__":
+
+def main():
     app = QApplication(sys.argv)
     window = MainWindow()
     sys.exit(app.exec())
