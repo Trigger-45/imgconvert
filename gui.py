@@ -1,6 +1,6 @@
 import sys
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QImage
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton, QRadioButton,
     QComboBox, QLineEdit, QGroupBox, QHBoxLayout, QVBoxLayout, QScrollArea, QMessageBox
@@ -137,13 +137,13 @@ class MainWindow(QWidget):
         self.label.setAlignment(Qt.AlignCenter)
 
         # ScrollArea, falls Bild zu groß ist
-        scroll_area = QScrollArea()
-        scroll_area.setWidgetResizable(True)
-        scroll_area.setWidget(self.label)
+        self.scroll_area = QScrollArea()
+        self.scroll_area.setWidgetResizable(True)
+        self.scroll_area.setWidget(self.label)
 
         # --- Hauptlayout zusammenfügen ---
         main_layout.addLayout(controls_layout)
-        main_layout.addWidget(scroll_area)
+        main_layout.addWidget(self.scroll_area)
 
         self.show()
 
@@ -203,8 +203,18 @@ class MainWindow(QWidget):
 
         if os.path.isdir(self.file_path):
             files = [f for f in os.listdir(self.file_path) if f.lower().endswith((".jpg", ".jpeg", ".png", ".webp", ".bmp", ".gif"))]
-            text = "\n".join(files)   
-            self.label.setText(text)
+
+            container = QWidget()
+            vbox = QVBoxLayout(container)
+
+            for f in files:
+                img_path = os.path.join(self.file_path, f)
+                img = QImage(img_path)
+                lbl = QLabel()
+                lbl.setPixmap(QPixmap.fromImage(img).scaledToWidth(300, Qt.SmoothTransformation))  # Skaliert
+                vbox.addWidget(lbl)
+
+            self.scroll_area.setWidget(container)
         else:
             pixmap = QPixmap(self.file_path)
             scaled = pixmap.scaled(self.label.width(), self.label.height(),
