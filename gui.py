@@ -245,6 +245,10 @@ class MainWindow(QWidget):
                 except ValueError:
                     factor = 1.0
                 imgconvert.convert_image(self.file_path, self.get_format(), factor, None)
+            
+                msgBox = QMessageBox()
+                msgBox.setText("Convertion successful")
+                msgBox.exec()
             elif self.wh_radio.isChecked():
                 try:
                     width = int(self.width_input.text()) if self.width_input.text() else 0
@@ -257,7 +261,9 @@ class MainWindow(QWidget):
                     imgconvert.convert_image(self.file_path, self.get_format(), 1.0, None)
             else:
                 imgconvert.convert_image(self.file_path, self.get_format(), 1.0, None)
-
+            msgBox = QMessageBox()
+            msgBox.setText("Convertion successful")
+            msgBox.exec()
 
 
 def main():

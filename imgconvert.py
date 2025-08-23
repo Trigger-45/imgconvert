@@ -27,6 +27,7 @@ def convert_image(image_path, output_format, resize_factor=1.0, resize_to=None):
 
     os.makedirs("output", exist_ok=True)
     img.save(output_path)
+    print(f"Converted {image_path} to {output_path}")
 
 def main():
     # Wenn Argumente übergeben werden, führe das Bildkonvertierungs-Programm aus
