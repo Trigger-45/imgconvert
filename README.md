@@ -3,7 +3,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-CLI_done-brightgreen" alt="CLI Status">
-  <img src="https://img.shields.io/badge/status-GUI_in_progress-yellow" alt="GUI Status">
+  <img src="https://img.shields.io/badge/status-GUI_beta-orange" alt="GUI Status">
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="License">
 </p>
 
@@ -20,7 +20,7 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
 | Datei / Feature | Status |
 |-----------------|--------|
 | `imgconvert.py` | ![Done](https://img.shields.io/badge/status-done-brightgreen) |
-| `gui.py` | ![In Progress](https://img.shields.io/badge/status-in_progress-yellow) |
+| `gui.py` | ![Beta](https://img.shields.io/badge/status-GUI_beta-orange) |
 
 ## ✨ Features
 
@@ -45,6 +45,15 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
     ```
 
 ---
+
+## Requirements
+- Pillow
+- PySide6
+
+## 🖼️ Screenshots
+
+### GUI Beispiel
+![GUI Screenshot](docs/Screenshot_gui.png)
 
 
 ## ⚙️ Tool einrichten (optional)
@@ -117,17 +126,17 @@ chmod +x dist/imgconvert
 
 1. Einzelnes Bild konvertieren
     ```bash
-    python main.py -i bild.png jpg
+    python imgconvert.py -i bild.png jpg
     ```
     ➡ bild.png wird zu output/bild.jpg
 2.  Größe prozentual ändern
     ```bash
-    python main.py -i bild.png jpg -rf 0.5
+    python imgconvert.py -i bild.png jpg -rf 0.5
     ```
     ➡ bild.png wird zu output/bild.jpg mit 50% Größe
 3. Größe auf feste Werte setzen
     ```bash
-    python main.py -i bild.png jpg -rt 800 600
+    python imgconvert.py -i bild.png jpg -rt 800 600
     ```
     ➡ bild.png wird zu output/bild.jpg mit 800x600
 4. Kompletten Ordner konvertieren

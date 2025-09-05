@@ -236,7 +236,7 @@ class MainWindow(QWidget):
                         (int(self.width_input.text()), int(self.height_input.text())) if self.wh_radio.isChecked() and self.width_input.text() and self.height_input.text() else None
                     )
             msgBox = QMessageBox()
-            msgBox.setText("Convertion successful")
+            msgBox.setText("Conversion successful")
             msgBox.exec()
         else:  # 🟢 Einzeldatei
             if self.factor_radio.isChecked():
@@ -247,7 +247,7 @@ class MainWindow(QWidget):
                 imgconvert.convert_image(self.file_path, self.get_format(), factor, None)
             
                 msgBox = QMessageBox()
-                msgBox.setText("Convertion successful")
+                msgBox.setText("Conversion successful")
                 msgBox.exec()
             elif self.wh_radio.isChecked():
                 try:
@@ -262,7 +262,7 @@ class MainWindow(QWidget):
             else:
                 imgconvert.convert_image(self.file_path, self.get_format(), 1.0, None)
             msgBox = QMessageBox()
-            msgBox.setText("Convertion successful")
+            msgBox.setText("Conversion successful")
             msgBox.exec()
 
 
