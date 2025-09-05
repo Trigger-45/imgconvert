@@ -1,5 +1,5 @@
 <h1 align="center">📸 imgconvert</h1>
-<p align="center"><i>Dein Bild, dein Format, deine Größe!</i></p>
+<p align="center"><i>Your image, your format, your size!</i></p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/status-CLI_done-brightgreen" alt="CLI Status">
@@ -9,37 +9,36 @@
 
 ---
 
-**imgconvert** ist ein leichtgewichtiges, ultraschnelles CLI-Tool, mit dem du Bilder **konvertieren, verkleinern, vergrößern und in neue Formate umwandeln** kannst – alles mit nur einem einzigen Befehl.  
-Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconvert** macht’s in Sekunden.
+**imgconvert** is a lightweight, blazing-fast CLI tool that lets you **convert, shrink, enlarge, and change images into new formats** – all with a single command.  
+Whether JPG to PNG, PNG to WEBP, or even an entire folder – **imgconvert** does it in seconds.
 
 ---
 
-
 ## Project Files & Features 📂
 
-| Datei / Feature | Status |
-|-----------------|--------|
+| File / Feature | Status |
+|----------------|--------|
 | `imgconvert.py` | ![Done](https://img.shields.io/badge/status-done-brightgreen) |
 | `gui.py` | ![Beta](https://img.shields.io/badge/status-GUI_beta-orange) |
 
 ## ✨ Features
 
-- 🔄 **Format wechseln** – JPG → PNG, PNG → WEBP, BMP → JPG … was du willst.
-- 📏 **Größe ändern** – prozentual oder direkt auf feste Breite/Höhe.
-- 📂 **Batch-Modus** – kompletten Ordner voller Bilder in einem Rutsch konvertieren.
-- 🛠 **Simpel & schnell** – nur ein paar Argumente und los geht’s.
-- 💡 **Kein Photoshop nötig** – CLI reicht völlig.
+- 🔄 **Change format** – JPG → PNG, PNG → WEBP, BMP → JPG … whatever you want.
+- 📏 **Resize images** – by percentage or directly to fixed width/height.
+- 📂 **Batch mode** – convert a whole folder of images in one go.
+- 🛠 **Simple & fast** – just a few arguments and you’re good to go.
+- 💡 **No Photoshop required** – CLI is more than enough.
 
 ---
 
 ## 🚀 Installation
 
-1. **Repository klonen**  
+1. **Clone the repository**  
    ```bash
    git clone https://github.com/Trigger-45/imgconvert.git
    cd imgconvert
    ```
-2. **Abhängigkeiten installieren**
+2. **Install dependencies**
     ```bash
     pip install -r requirements.txt
     ```
@@ -52,136 +51,130 @@ Egal ob JPG zu PNG, PNG zu WEBP oder gleich ein ganzer Ordner voll – **imgconv
 
 ## 🖼️ Screenshots
 
-### GUI Beispiel
+### GUI Example
 ![GUI Screenshot](docs/Screenshot_gui.png)
 
+## ⚙️ Setup Tool (optional)
 
-## ⚙️ Tool einrichten (optional)
+### 💻 Windows – Create EXE and add to PATH
 
-### 💻 Windows – EXE erstellen und PATH hinzufügen
-
-1. EXE mit PyInstaller erstellen
-    1. Öffne die Eingabeaufforderung (CMD) oder PowerShell.
-    2. Navigiere in dein Projektverzeichnis:
+1. Create EXE with PyInstaller
+    1. Open CMD or PowerShell.
+    2. Navigate to your project folder:
     ```bash
-    cd C:\Pfad\zu\imgconvert
+    cd C:\path\to\imgconvert
     ```
-    3. Erstelle die ausführbare Datei
-    ```bash
-    pyinstaller --onefile imgconvert.py
-    ```
-    - --onefile → alles in einer Datei
-    - Die EXE landet danach in dist\imgconvert.exe.
-2. Ordner zum PATH hinzufügen
-    1.  Drücke Win + S, tippe Systemumgebungsvariablen und öffne „Systemumgebungsvariablen bearbeiten“.
-
-    2. Klicke unten auf „Umgebungsvariablen…“.
-
-    3. Suche in Systemvariablen nach Path → Bearbeiten.
-
-    4. Klicke Neu → füge C:\Pfad\zu\dist ein → OK schließen.
-
-    5. CMD/PowerShell neu starten, damit die Änderung aktiv wird.
-
-3. EXE von überall aufrufen
-
-    - Jetzt kannst du das Tool von jedem Verzeichnis aus nutzen
-    - Die EXE ist jetzt global verfügbar, kein Python mehr nötig
-
-### 🐧 Linux – EXE erstellen und PATH hinzufügen
-
-1. EXE mit PyInstaller erstellen
-
-    1. Öffne das Terminal.
-    2. Navigiere in dein Projektverzeichnis:
-    ```bash
-    cd /pfad/zu/imgconvert
-    ```
-    3. Erstelle die ausführbare Datei:
+    3. Create the executable
     ```bash
     pyinstaller --onefile imgconvert.py
     ```
-    - Die fertige EXE landet danach in dist/imgconvert.
+    - --onefile → everything in one file
+    - The EXE will be created in dist\imgconvert.exe.
+2. Add folder to PATH
+    1. Press Win + S, type *Environment Variables* and open “Edit the system environment variables”.
+    2. Click “Environment Variables…” at the bottom.
+    3. Find Path in System variables → Edit.
+    4. Click New → add C:\path\to\dist → close with OK.
+    5. Restart CMD/PowerShell to apply changes.
 
-2. Ausführbar machen
+3. Run EXE from anywhere
+
+    - Now you can use the tool from any directory
+    - The EXE is globally available, no Python required
+
+### 🐧 Linux – Create EXE and add to PATH
+
+1. Create EXE with PyInstaller
+
+    1. Open the terminal.
+    2. Navigate to your project folder:
+    ```bash
+    cd /path/to/imgconvert
+    ```
+    3. Create the executable:
+    ```bash
+    pyinstaller --onefile imgconvert.py
+    ```
+    - The EXE will be created in dist/imgconvert.
+
+2. Make it executable
 ```bash
 chmod +x dist/imgconvert
 ```
-- Das macht die Datei ausführbar
+- This makes the file executable
 
-3. Ordner zum PATH hinzufügen
-    - Damit du sie von überall aufrufen kannst, füge einfach den dist/-Ordner deinem PATH hinzu:
+3. Add folder to PATH
+    - To run it from anywhere, just add the dist/ folder to your PATH:
     ```bash
-    echo 'export PATH="/pfad/zu/imgconvert/dist:$PATH"' >> ~/.bashrc
+    echo 'export PATH="/path/to/imgconvert/dist:$PATH"' >> ~/.bashrc
     source ~/.bashrc
     ```
-    - Ersetze /pfad/zu/imgconvert durch den absoluten Pfad zu deinem Projekt.
+    - Replace /path/to/imgconvert with the absolute path to your project.
 
 
-4. EXE von überall aufrufen
-    - Jetzt kannst du das Tool von jedem Verzeichnis aus nutzen
-    - Die EXE ist jetzt global verfügbar, kein Python mehr nötig
+4. Run EXE from anywhere
+    - Now you can use the tool from any directory
+    - The EXE is globally available, no Python required
 
-## 🖥️ Nutzung
+## 🖥️ Usage
 
-1. Einzelnes Bild konvertieren
+1. Convert a single image
     ```bash
-    python imgconvert.py -i bild.png jpg
+    python imgconvert.py -i image.png jpg
     ```
-    ➡ bild.png wird zu output/bild.jpg
-2.  Größe prozentual ändern
+    ➡ image.png → output/image.jpg
+2. Resize by percentage
     ```bash
-    python imgconvert.py -i bild.png jpg -rf 0.5
+    python imgconvert.py -i image.png jpg -rf 0.5
     ```
-    ➡ bild.png wird zu output/bild.jpg mit 50% Größe
-3. Größe auf feste Werte setzen
+    ➡ image.png → output/image.jpg at 50% size
+3. Resize to fixed values
     ```bash
-    python imgconvert.py -i bild.png jpg -rt 800 600
+    python imgconvert.py -i image.png jpg -rt 800 600
     ```
-    ➡ bild.png wird zu output/bild.jpg mit 800x600
-4. Kompletten Ordner konvertieren
+    ➡ image.png → output/image.jpg at 800x600
+4. Convert an entire folder
     ```bash
-    python imgconvert.py png -d /path/to/ordner
+    python imgconvert.py png -d /path/to/folder
     ```
 
-5. Bilder mit GUI konvertieren
+5. Convert images with GUI
     ```bash
     python imgconvert.py
     ```
 
-> **_NOTE:_**  Wenn das Tool eingerichtet wurde (Path hinzugefügt) ändert sich nur der Anfang von `python imgconvert.py` zu `imgconvert`. Die Argumente bleiben gleich.
+> **_NOTE:_**  If the tool is set up (Path added), you only need to replace `python imgconvert.py` with `imgconvert`. The arguments remain the same.
 
-## ⚡ Beispiele
+## ⚡ Examples
 
-| Eingabe | Ausgabe | Aktion |
+| Input | Output | Action |
 |---------|---------|--------|
-| `-i urlaub.jpg png` | `urlaub.png` | JPG → PNG |
-| `-i bild.png webp -rf 0.25` | `bild.webp` | 75% kleiner |
-| `png -d ./fotos` | Alle PNGs im Output | Batch-Ordner |
+| `-i holiday.jpg png` | `holiday.png` | JPG → PNG |
+| `-i image.png webp -rf 0.25` | `image.webp` | 75% smaller |
+| `png -d ./photos` | All PNGs in output | Batch folder |
 
 ---
 
-## 🧩 Geplante Features
-- [ ] Transparenz-Handling verbessern
-- [ ] Exif-Daten optional erhalten
-- [ ] Mehr Bildformate (TIFF, ICO, etc.)
-- [ ] Vollwertige **CLI-Version** mit erweiterten Optionen
-- [ ] Benutzerfreundliche **GUI-Version** für einfaches Klicken statt Tippen
+## 🧩 Planned Features
+- [x] User-friendly **GUI version** for click-based usage
+- [ ] Improve transparency handling
+- [ ] Optionally preserve Exif data
+- [ ] Support more formats (TIFF, ICO, etc.)
+- [ ] Full-featured **CLI version** with extended options
+
 
 ---
 
 ## 📝 To-Do
 
-- [ ] Tests für verschiedene Bildformate schreiben  
-- [ ] Fehlerbehandlung verbessern (ungültige Eingaben, kaputte Dateien)  
-- [ ] Logging hinzufügen (optional mit `--verbose`)  
-- [ ] Performance-Benchmarking bei großen Ordnern  
-- [ ] GUI weiterentwickeln und erste Beta releasen 
-- [ ] Bildvorschau bei Ordner anzeigen (Gui mithilfe von QScrollArea)
+- [ ] Write tests for different image formats  
+- [ ] Improve error handling (invalid inputs, broken files)  
+- [ ] Add logging (optional with `--verbose`)  
+- [ ] Performance benchmarking on large folders  
+- [ ] Further develop GUI and release first beta  
+- [ ] Add image preview in folder view (GUI with QScrollArea)
 
 ---
 
-## 📜 Lizenz
-Dieses Projekt steht unter der [MIT-Lizenz](LICENSE).
-
-
+## 📜 License
+This project is licensed under the [MIT License](LICENSE).
